@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace  DylanNgo\CustomProductAttribute\Model\Product\Attribute\Backend;
 
-use DylanNgo\CustomProductAttribute\Model\ProductIngredientsRepository;
-
 /**
  * Class Ingredients
  * @package DylanNgo\CustomProductAttribute\Model\Product\Attribute\Backend
