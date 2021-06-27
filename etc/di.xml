@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--    preference-->
+    <preference for="DylanNgo\CustomProductAttribute\Api\Data\ProductIngredientsInterface"
+                type="DylanNgo\CustomProductAttribute\Model\ProductIngredients"/>
+    <preference for="DylanNgo\CustomProductAttribute\Api\Data\IngredientInterface"
+                type="DylanNgo\CustomProductAttribute\Model\Ingredients"/>
+    <!--    cache eav-->
+    <type name="Magento\Eav\Model\Config">
+        <arguments>
+            <argument name="attributesForPreload" xsi:type="array">
+                <item name="catalog_product" xsi:type="array">
+                    <item name="ingredients" xsi:type="string">catalog_product</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <!--    preload product attribute-->
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Magento\Catalog\Api\Data\ProductInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="read_product_ingredients" xsi:type="string">DylanNgo\CustomProductAttribute\Model\Product\ReadHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <!--    command import ingredients-->
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="dylanngo_customproductattribute_import_ingredients" xsi:type="object">
+                    DylanNgo\CustomProductAttribute\Console\Command\ImportIngredients
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

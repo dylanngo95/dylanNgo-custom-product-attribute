@@ -1,0 +1,29 @@
+{
+    "ingredients": {
+        "column": {
+            "entity_id": true,
+            "value": true,
+            "position": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "product_ingredients": {
+        "column": {
+            "entity_id": true,
+            "ingredient_id": true,
+            "product_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "PRODUCT_INGREDIENTS_PRODUCT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
