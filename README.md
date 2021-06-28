@@ -2,6 +2,7 @@
 Module for add ingredients product attribute.
 
 ## How to install module
+* Make sure the module running on Magento 2.4.2, php7.4
 * Copy code to <project>/app/code/DylanNgo/CustomProductAttribute
 * After that please run the command:
 ```bash
