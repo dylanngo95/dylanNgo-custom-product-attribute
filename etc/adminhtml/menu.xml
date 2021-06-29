@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="DylanNgo_CustomProductAttribute::listing" sortOrder="10" title="Ingredients"
+             module="DylanNgo_CustomProductAttribute" parent="Magento_Catalog::catalog"
+             resource="DylanNgo_CustomProductAttribute::listing" translate="title" action="dylan/ingredient/index"/>
+    </menu>
+</config>

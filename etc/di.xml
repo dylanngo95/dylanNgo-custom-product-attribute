@@ -38,4 +38,20 @@
             </argument>
         </arguments>
     </type>
+    <!--    data provider-->
+    <virtualType name="Ingredients" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="resourceModel" xsi:type="string">
+                DylanNgo\CustomProductAttribute\Model\ResourceModel\Ingredients\Collection
+            </argument>
+            <argument name="mainTable" xsi:type="string">ingredients</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument xsi:type="array">
+                <item xsi:type="string" name="ingredients_data_source">Ingredients</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

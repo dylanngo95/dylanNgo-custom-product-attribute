@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DylanNgo\CustomProductAttribute\Model;
 
-
 use DylanNgo\CustomProductAttribute\Api\Data\IngredientInterface;
 use DylanNgo\CustomProductAttribute\Api\IngredientsRepositoryInterface;
+use DylanNgo\CustomProductAttribute\Model\IngredientsFactory as ObjectModelFactory;
 use DylanNgo\CustomProductAttribute\Model\ResourceModel\Ingredients as ObjectResourceModel;
 use DylanNgo\CustomProductAttribute\Model\ResourceModel\Ingredients\CollectionFactory;
 use Magento\Framework\Exception\CouldNotSaveException;
@@ -19,14 +19,16 @@ class IngredientsRepository implements IngredientsRepositoryInterface
 {
     private CollectionFactory $collectionFactory;
     private ObjectResourceModel $objectResourceModel;
+    private IngredientsFactory $objectModelFactory;
 
     public function __construct(
         ObjectResourceModel $objectResourceModel,
+        ObjectModelFactory $objectModelFactory,
         CollectionFactory $collectionFactory
-    )
-    {
-        $this->collectionFactory = $collectionFactory;
+    ) {
         $this->objectResourceModel = $objectResourceModel;
+        $this->objectModelFactory = $objectModelFactory;
+        $this->collectionFactory = $collectionFactory;
     }
 
     /**
@@ -39,11 +41,10 @@ class IngredientsRepository implements IngredientsRepositoryInterface
         try {
             $this->objectResourceModel->save($ingredient);
             return $ingredient;
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             throw new CouldNotSaveException(__($e->getMessage()));
         }
     }
-
 
     /**
      * @param int $batchSize
@@ -57,4 +58,19 @@ class IngredientsRepository implements IngredientsRepositoryInterface
             ->getItems();
     }
 
+    /**
+     * Get By Id.
+     *
+     * @param int $id
+     * @return IngredientInterface
+     */
+    public function getById(int $id): ?IngredientInterface
+    {
+        $object = $this->objectModelFactory->create();
+        $this->objectResourceModel->load($object, $id);
+        if (!$object->getEntityId()) {
+            return null;
+        }
+        return $object;
+    }
 }

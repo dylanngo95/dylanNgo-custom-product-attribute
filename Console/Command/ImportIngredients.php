@@ -9,12 +9,11 @@ use DylanNgo\CustomProductAttribute\Model\IngredientsRepository;
 use Exception;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\File\Csv;
+use Magento\Framework\Setup\SampleData\Context as SampleDataContext;
 use Magento\Framework\Setup\SampleData\FixtureManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Magento\Framework\Setup\SampleData\Context as SampleDataContext;
-
 
 /**
  * Class ImportIngredients
@@ -41,8 +40,7 @@ class ImportIngredients extends Command
         IngredientsRepository $ingredientsRepository,
         IngredientInterfaceFactory $ingredientInterfaceFactory,
         SampleDataContext $context
-    )
-    {
+    ) {
         parent::__construct();
         $this->ingredientsRepository = $ingredientsRepository;
         $this->ingredientInterfaceFactory = $ingredientInterfaceFactory;

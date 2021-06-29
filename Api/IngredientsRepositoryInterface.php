@@ -23,4 +23,10 @@ interface IngredientsRepositoryInterface
      * @return \DylanNgo\CustomProductAttribute\Api\Data\IngredientInterface[]
      */
     public function getList(): array;
+
+    /**
+     * @param int $id
+     * @return \DylanNgo\CustomProductAttribute\Api\Data\IngredientInterface
+     */
+    public function getById(int $id);
 }

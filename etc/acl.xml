@@ -1,9 +1,15 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="DylanNgo_CustomProductAttribute::ingredients" title="Ingredients" sortOrder="10" />
+                <resource id="DylanNgo_CustomProductAttribute::ingredients" title="Ingredients" sortOrder="10">
+                    <resource id="DylanNgo_CustomProductAttribute::ingredients_listing" title="Ingredients list"/>
+                    <resource id="DylanNgo_CustomProductAttribute::ingredients_new" title="Ingredients Create"/>
+                    <resource id="DylanNgo_CustomProductAttribute::ingredients_save" title="Ingredients Save"/>
+                    <resource id="DylanNgo_CustomProductAttribute::ingredients_delete" title="Ingredients Delete"/>
+                </resource>
             </resource>
         </resources>
     </acl>

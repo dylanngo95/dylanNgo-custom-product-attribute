@@ -6,14 +6,12 @@ namespace DylanNgo\CustomProductAttribute\Ui\DataProvider\Product\Form\Modifier;
 
 use DylanNgo\CustomProductAttribute\Api\Data\IngredientInterface;
 use DylanNgo\CustomProductAttribute\Model\IngredientsRepository;
+use Magento\Backend\Model\Auth\Session;
 use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
-use Magento\Framework\App\CacheInterface;
+use Magento\Framework\AuthorizationInterface;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\Stdlib\ArrayManager;
-use Magento\Framework\AuthorizationInterface;
-use Magento\Backend\Model\Auth\Session;
-
 
 /**
  * Class Categories
@@ -34,11 +32,6 @@ class Ingredients extends AbstractModifier
      * @since 101.0.0
      */
     protected ArrayManager $arrayManager;
-
-    /**
-     * @var CacheInterface
-     */
-    private CacheInterface $cacheManager;
 
     /**
      * @var SerializerInterface
@@ -67,7 +60,6 @@ class Ingredients extends AbstractModifier
      * @param AuthorizationInterface $authorization
      * @param Session $session
      * @param IngredientsRepository $ingredientsRepository
-     * @param CacheInterface $cacheManager
      */
     public function __construct(
         LocatorInterface $locator,
@@ -75,17 +67,14 @@ class Ingredients extends AbstractModifier
         SerializerInterface $serializer,
         AuthorizationInterface $authorization,
         Session $session,
-        IngredientsRepository $ingredientsRepository,
-        CacheInterface $cacheManager
-    )
-    {
+        IngredientsRepository $ingredientsRepository
+    ) {
         $this->locator = $locator;
         $this->arrayManager = $arrayManager;
         $this->serializer = $serializer;
         $this->authorization = $authorization;
         $this->session = $session;
         $this->ingredientsRepository = $ingredientsRepository;
-        $this->cacheManager = $cacheManager;
     }
 
     /**
@@ -128,7 +117,8 @@ class Ingredients extends AbstractModifier
         $fieldCode = 'ingredients';
         $elementPath = $this->arrayManager->findPath($fieldCode, $meta, null, 'children');
         $containerPath = $this->arrayManager->findPath(
-            static::CONTAINER_PREFIX . $fieldCode, $meta,
+            static::CONTAINER_PREFIX . $fieldCode,
+            $meta,
             null,
             'children'
         );
@@ -193,13 +183,6 @@ class Ingredients extends AbstractModifier
      */
     protected function getIngredients($filter = null): array
     {
-        $storeId = (int)$this->locator->getStore()->getId();
-
-        $cachedIngredient = $this->cacheManager->load($this->getCacheId($storeId, (string)$filter));
-        if (!empty($cachedIngredient)) {
-            return $this->serializer->unserialize($cachedIngredient);
-        }
-
         $ingredients = $this->ingredientsRepository->getList();
         $data = [];
         foreach ($ingredients as $ingredient) {
@@ -211,15 +194,6 @@ class Ingredients extends AbstractModifier
                 '__disableTmpl' => true,
             ];
         }
-
-        $this->cacheManager->save(
-            $this->serializer->serialize($data),
-            $this->getCacheId($storeId, (string)$filter),
-            [
-                \Magento\Catalog\Model\Category::CACHE_TAG,
-                \Magento\Framework\App\Cache\Type\Block::CACHE_TAG
-            ]
-        );
 
         return $data;
     }

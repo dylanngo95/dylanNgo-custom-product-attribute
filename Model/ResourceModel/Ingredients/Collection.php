@@ -20,6 +20,14 @@ class Collection extends AbstractCollection
     protected $_eventPrefix = 'ingredients_collection';
 
     /**
+     * Help to select all with massDelete
+     *
+     * @var string
+     */
+    protected $_idFieldName = 'entity_id';
+
+
+    /**
      * @inheritdoc
      */
     protected function _construct()
