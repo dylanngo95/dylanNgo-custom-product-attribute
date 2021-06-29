@@ -59,6 +59,21 @@ class IngredientsRepository implements IngredientsRepositoryInterface
     }
 
     /**
+     * @param array $ids
+     * @param int $batchSize
+     * @return array
+     */
+    public function getByIds(array $ids, int $batchSize = 1000): array
+    {
+        return $this->collectionFactory
+            ->create()
+            ->addFieldToFilter('entity_id', ['in' => $ids])
+            ->addFieldToSelect(['value'])
+            ->setPageSize($batchSize)
+            ->getItems();
+    }
+
+    /**
      * Get By Id.
      *
      * @param int $id

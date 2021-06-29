@@ -197,24 +197,4 @@ class Ingredients extends AbstractModifier
 
         return $data;
     }
-
-    /**
-     * Get Cache Id.
-     *
-     * @param int $storeId
-     * @param string $filter
-     * @return string
-     */
-    private function getCacheId(int $storeId, string $filter = ''): string
-    {
-        if ($this->session->getUser() !== null) {
-            return self::CATALOG_PRODUCT_INGREDIENTS
-                . '_' . (string)$storeId
-                . '_' . $this->session->getUser()->getAclRole()
-                . '_' . $filter;
-        }
-        return self::CATALOG_PRODUCT_INGREDIENTS
-            . '_' . (string)$storeId
-            . '_' . $filter;
-    }
 }

@@ -1,0 +1,9 @@
+<?php
+    /** @var DylanNgo\CustomProductAttribute\Block\Rewrite\Product\Ingredients $block */
+    $ingredients = $block->getIngredientsValue();
+?>
+<?php foreach ($ingredients as $ingredient):?>
+    <div style="color: #0000ff">
+        <?=$ingredient->getValue()?>
+    </div>
+<?php endforeach; ?>
