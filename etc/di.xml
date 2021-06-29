@@ -6,6 +6,12 @@
                 type="DylanNgo\CustomProductAttribute\Model\ProductIngredients"/>
     <preference for="DylanNgo\CustomProductAttribute\Api\Data\IngredientInterface"
                 type="DylanNgo\CustomProductAttribute\Model\Ingredients"/>
+    <!--    plugin-->
+    <type name="Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper">
+        <plugin name="dylanngo_custom_product_attribute_helper"
+                type="DylanNgo\CustomProductAttribute\Plugin\Catalog\Product\Helper"
+                sortOrder="1"/>
+    </type>
     <!--    cache eav-->
     <type name="Magento\Eav\Model\Config">
         <arguments>

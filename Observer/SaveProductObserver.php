@@ -21,8 +21,7 @@ class SaveProductObserver implements ObserverInterface
     public function __construct(
         ProductIngredientsRepository $productIngredientsRepository,
         ProductIngredientsInterfaceFactory $productIngredientsInterfaceFactory
-    )
-    {
+    ) {
         $this->productIngredientsRepository = $productIngredientsRepository;
         $this->productIngredientsInterfaceFactory = $productIngredientsInterfaceFactory;
     }
@@ -36,10 +35,11 @@ class SaveProductObserver implements ObserverInterface
     {
         $product = $observer->getProduct();
         $ingredientsIds = $product->getIngredients() ?? [];
+        $productId = (int) $product->getId();
         if (!count($ingredientsIds)) {
+            $this->productIngredientsRepository->deleteByProductId($productId);
             return;
         }
-        $productId = (int) $product->getId();
         $this->productIngredientsRepository->deleteByProductId($productId);
         foreach ($ingredientsIds as $ingredientsId) {
             $productIngredient = $this->productIngredientsInterfaceFactory->create();

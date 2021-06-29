@@ -21,8 +21,7 @@ class ReadHandler implements ExtensionInterface
      */
     public function __construct(
         ProductIngredientsRepository $productIngredientsRepository
-    )
-    {
+    ) {
         $this->productIngredientsRepository = $productIngredientsRepository;
     }
 
